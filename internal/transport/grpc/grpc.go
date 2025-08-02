@@ -29,18 +29,12 @@ func NewHandler(l *slog.Logger, grpcServer *grpc.Server, service service) {
 }
 
 func (h *Handler) PublishMessages(stream pb.Pubbet_PublishMessagesServer) error {
-	req, err := stream.Recv()
-	if err != nil {
-		h.l.Error("failed to read first message", "error", err)
-		return err
-	}
-
 	var messagesSent int64
 
 	h.l.Info("Starting message publishing")
 
 	for {
-		req, err = stream.Recv()
+		req, err := stream.Recv()
 		if err == io.EOF {
 			return stream.SendAndClose(&pb.PublishMessagesResponse{
 				MessagesSent: messagesSent,
