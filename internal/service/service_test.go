@@ -39,7 +39,7 @@ func TestService_SendMessage(t *testing.T) {
 			)
 
 			svc.SendMessage(tt.InputTopicName, tt.InputMessage)
-			assert.Equal(t, tt.ExceptedTopics, svc.topics)
+			assert.Equal(t, tt.ExceptedTopics[tt.InputTopicName].messages, svc.topics[tt.InputTopicName].messages)
 		})
 	}
 }
