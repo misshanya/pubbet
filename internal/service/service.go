@@ -52,6 +52,7 @@ func (s *Service) ListenMessages(ctx context.Context, topicName string) (<-chan 
 		for {
 			select {
 			case <-ctx.Done():
+				close(ch)
 				return
 			default:
 				topic := s.topics[topicName]
