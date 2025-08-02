@@ -21,64 +21,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type PublishMessagesMetadata struct {
+type PublishMessagesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TopicName     string                 `protobuf:"bytes,1,opt,name=topic_name,json=topicName,proto3" json:"topic_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *PublishMessagesMetadata) Reset() {
-	*x = PublishMessagesMetadata{}
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *PublishMessagesMetadata) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*PublishMessagesMetadata) ProtoMessage() {}
-
-func (x *PublishMessagesMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use PublishMessagesMetadata.ProtoReflect.Descriptor instead.
-func (*PublishMessagesMetadata) Descriptor() ([]byte, []int) {
-	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *PublishMessagesMetadata) GetTopicName() string {
-	if x != nil {
-		return x.TopicName
-	}
-	return ""
-}
-
-type PublishMessagesRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Types that are valid to be assigned to Data:
-	//
-	//	*PublishMessagesRequest_Metadata
-	//	*PublishMessagesRequest_Message
-	Data          isPublishMessagesRequest_Data `protobuf_oneof:"data"`
+	Message       []byte                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PublishMessagesRequest) Reset() {
 	*x = PublishMessagesRequest{}
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[1]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -90,7 +43,7 @@ func (x *PublishMessagesRequest) String() string {
 func (*PublishMessagesRequest) ProtoMessage() {}
 
 func (x *PublishMessagesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[1]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -103,61 +56,33 @@ func (x *PublishMessagesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublishMessagesRequest.ProtoReflect.Descriptor instead.
 func (*PublishMessagesRequest) Descriptor() ([]byte, []int) {
-	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{1}
+	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *PublishMessagesRequest) GetData() isPublishMessagesRequest_Data {
+func (x *PublishMessagesRequest) GetTopicName() string {
 	if x != nil {
-		return x.Data
+		return x.TopicName
 	}
-	return nil
-}
-
-func (x *PublishMessagesRequest) GetMetadata() *PublishMessagesMetadata {
-	if x != nil {
-		if x, ok := x.Data.(*PublishMessagesRequest_Metadata); ok {
-			return x.Metadata
-		}
-	}
-	return nil
+	return ""
 }
 
 func (x *PublishMessagesRequest) GetMessage() []byte {
 	if x != nil {
-		if x, ok := x.Data.(*PublishMessagesRequest_Message); ok {
-			return x.Message
-		}
+		return x.Message
 	}
 	return nil
 }
 
-type isPublishMessagesRequest_Data interface {
-	isPublishMessagesRequest_Data()
-}
-
-type PublishMessagesRequest_Metadata struct {
-	Metadata *PublishMessagesMetadata `protobuf:"bytes,1,opt,name=metadata,proto3,oneof"`
-}
-
-type PublishMessagesRequest_Message struct {
-	Message []byte `protobuf:"bytes,2,opt,name=message,proto3,oneof"`
-}
-
-func (*PublishMessagesRequest_Metadata) isPublishMessagesRequest_Data() {}
-
-func (*PublishMessagesRequest_Message) isPublishMessagesRequest_Data() {}
-
 type PublishMessagesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	TopicName     string                 `protobuf:"bytes,1,opt,name=topic_name,json=topicName,proto3" json:"topic_name,omitempty"`
-	MessagesSent  int64                  `protobuf:"varint,2,opt,name=messages_sent,json=messagesSent,proto3" json:"messages_sent,omitempty"`
+	MessagesSent  int64                  `protobuf:"varint,1,opt,name=messages_sent,json=messagesSent,proto3" json:"messages_sent,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PublishMessagesResponse) Reset() {
 	*x = PublishMessagesResponse{}
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[2]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -169,7 +94,7 @@ func (x *PublishMessagesResponse) String() string {
 func (*PublishMessagesResponse) ProtoMessage() {}
 
 func (x *PublishMessagesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[2]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -182,14 +107,7 @@ func (x *PublishMessagesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublishMessagesResponse.ProtoReflect.Descriptor instead.
 func (*PublishMessagesResponse) Descriptor() ([]byte, []int) {
-	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *PublishMessagesResponse) GetTopicName() string {
-	if x != nil {
-		return x.TopicName
-	}
-	return ""
+	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *PublishMessagesResponse) GetMessagesSent() int64 {
@@ -208,7 +126,7 @@ type ListenTopicRequest struct {
 
 func (x *ListenTopicRequest) Reset() {
 	*x = ListenTopicRequest{}
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[3]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -220,7 +138,7 @@ func (x *ListenTopicRequest) String() string {
 func (*ListenTopicRequest) ProtoMessage() {}
 
 func (x *ListenTopicRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[3]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -233,7 +151,7 @@ func (x *ListenTopicRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListenTopicRequest.ProtoReflect.Descriptor instead.
 func (*ListenTopicRequest) Descriptor() ([]byte, []int) {
-	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{3}
+	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ListenTopicRequest) GetTopicName() string {
@@ -252,7 +170,7 @@ type TopicMessages struct {
 
 func (x *TopicMessages) Reset() {
 	*x = TopicMessages{}
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[4]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -264,7 +182,7 @@ func (x *TopicMessages) String() string {
 func (*TopicMessages) ProtoMessage() {}
 
 func (x *TopicMessages) ProtoReflect() protoreflect.Message {
-	mi := &file_pubbet_v1_pubbet_proto_msgTypes[4]
+	mi := &file_pubbet_v1_pubbet_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -277,7 +195,7 @@ func (x *TopicMessages) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TopicMessages.ProtoReflect.Descriptor instead.
 func (*TopicMessages) Descriptor() ([]byte, []int) {
-	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{4}
+	return file_pubbet_v1_pubbet_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *TopicMessages) GetMessage() []byte {
@@ -291,18 +209,13 @@ var File_pubbet_v1_pubbet_proto protoreflect.FileDescriptor
 
 const file_pubbet_v1_pubbet_proto_rawDesc = "" +
 	"\n" +
-	"\x16pubbet/v1/pubbet.proto\x12\tpubbet.v1\"8\n" +
-	"\x17PublishMessagesMetadata\x12\x1d\n" +
+	"\x16pubbet/v1/pubbet.proto\x12\tpubbet.v1\"Q\n" +
+	"\x16PublishMessagesRequest\x12\x1d\n" +
 	"\n" +
-	"topic_name\x18\x01 \x01(\tR\ttopicName\"~\n" +
-	"\x16PublishMessagesRequest\x12@\n" +
-	"\bmetadata\x18\x01 \x01(\v2\".pubbet.v1.PublishMessagesMetadataH\x00R\bmetadata\x12\x1a\n" +
-	"\amessage\x18\x02 \x01(\fH\x00R\amessageB\x06\n" +
-	"\x04data\"]\n" +
-	"\x17PublishMessagesResponse\x12\x1d\n" +
-	"\n" +
-	"topic_name\x18\x01 \x01(\tR\ttopicName\x12#\n" +
-	"\rmessages_sent\x18\x02 \x01(\x03R\fmessagesSent\"3\n" +
+	"topic_name\x18\x01 \x01(\tR\ttopicName\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\fR\amessage\">\n" +
+	"\x17PublishMessagesResponse\x12#\n" +
+	"\rmessages_sent\x18\x01 \x01(\x03R\fmessagesSent\"3\n" +
 	"\x12ListenTopicRequest\x12\x1d\n" +
 	"\n" +
 	"topic_name\x18\x01 \x01(\tR\ttopicName\")\n" +
@@ -324,25 +237,23 @@ func file_pubbet_v1_pubbet_proto_rawDescGZIP() []byte {
 	return file_pubbet_v1_pubbet_proto_rawDescData
 }
 
-var file_pubbet_v1_pubbet_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_pubbet_v1_pubbet_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_pubbet_v1_pubbet_proto_goTypes = []any{
-	(*PublishMessagesMetadata)(nil), // 0: pubbet.v1.PublishMessagesMetadata
-	(*PublishMessagesRequest)(nil),  // 1: pubbet.v1.PublishMessagesRequest
-	(*PublishMessagesResponse)(nil), // 2: pubbet.v1.PublishMessagesResponse
-	(*ListenTopicRequest)(nil),      // 3: pubbet.v1.ListenTopicRequest
-	(*TopicMessages)(nil),           // 4: pubbet.v1.TopicMessages
+	(*PublishMessagesRequest)(nil),  // 0: pubbet.v1.PublishMessagesRequest
+	(*PublishMessagesResponse)(nil), // 1: pubbet.v1.PublishMessagesResponse
+	(*ListenTopicRequest)(nil),      // 2: pubbet.v1.ListenTopicRequest
+	(*TopicMessages)(nil),           // 3: pubbet.v1.TopicMessages
 }
 var file_pubbet_v1_pubbet_proto_depIdxs = []int32{
-	0, // 0: pubbet.v1.PublishMessagesRequest.metadata:type_name -> pubbet.v1.PublishMessagesMetadata
-	1, // 1: pubbet.v1.Pubbet.PublishMessages:input_type -> pubbet.v1.PublishMessagesRequest
-	3, // 2: pubbet.v1.Pubbet.ListenMessages:input_type -> pubbet.v1.ListenTopicRequest
-	2, // 3: pubbet.v1.Pubbet.PublishMessages:output_type -> pubbet.v1.PublishMessagesResponse
-	4, // 4: pubbet.v1.Pubbet.ListenMessages:output_type -> pubbet.v1.TopicMessages
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 0: pubbet.v1.Pubbet.PublishMessages:input_type -> pubbet.v1.PublishMessagesRequest
+	2, // 1: pubbet.v1.Pubbet.ListenMessages:input_type -> pubbet.v1.ListenTopicRequest
+	1, // 2: pubbet.v1.Pubbet.PublishMessages:output_type -> pubbet.v1.PublishMessagesResponse
+	3, // 3: pubbet.v1.Pubbet.ListenMessages:output_type -> pubbet.v1.TopicMessages
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_pubbet_v1_pubbet_proto_init() }
@@ -350,17 +261,13 @@ func file_pubbet_v1_pubbet_proto_init() {
 	if File_pubbet_v1_pubbet_proto != nil {
 		return
 	}
-	file_pubbet_v1_pubbet_proto_msgTypes[1].OneofWrappers = []any{
-		(*PublishMessagesRequest_Metadata)(nil),
-		(*PublishMessagesRequest_Message)(nil),
-	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pubbet_v1_pubbet_proto_rawDesc), len(file_pubbet_v1_pubbet_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

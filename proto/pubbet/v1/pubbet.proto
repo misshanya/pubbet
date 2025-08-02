@@ -9,20 +9,13 @@ service Pubbet {
   rpc ListenMessages(ListenTopicRequest) returns (stream TopicMessages);
 }
 
-message PublishMessagesMetadata {
-  string topic_name = 1;
-}
-
 message PublishMessagesRequest {
-  oneof data {
-    PublishMessagesMetadata metadata = 1;
-    bytes message = 2;
-  }
+  string topic_name = 1;
+  bytes message = 2;
 }
 
 message PublishMessagesResponse {
-  string topic_name = 1;
-  int64 messages_sent = 2;
+  int64 messages_sent = 1;
 }
 
 message ListenTopicRequest {

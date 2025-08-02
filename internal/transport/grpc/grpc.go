@@ -35,28 +35,26 @@ func (h *Handler) PublishMessages(stream pb.Pubbet_PublishMessagesServer) error 
 		return err
 	}
 
-	metadata := req.GetMetadata()
-	if metadata == nil {
-		h.l.Error("first message is not metadata")
-		return status.Error(codes.InvalidArgument, "first message is not metadata")
-	}
-
-	topicName := metadata.TopicName
 	var messagesSent int64
 
-	h.l.Info("Starting message publishing", "topic", topicName)
+	h.l.Info("Starting message publishing")
 
 	for {
 		req, err = stream.Recv()
 		if err == io.EOF {
 			return stream.SendAndClose(&pb.PublishMessagesResponse{
-				TopicName:    topicName,
 				MessagesSent: messagesSent,
 			})
 		}
 		if err != nil {
 			h.l.Error("failed to read stream", "error", err)
 			return err
+		}
+
+		topicName := req.GetTopicName()
+		if topicName == "" {
+			h.l.Error("topic name is empty")
+			return status.Error(codes.InvalidArgument, "topic name is empty")
 		}
 
 		message := req.GetMessage()
