@@ -27,40 +27,26 @@ func InterceptorLogger(l *slog.Logger) logging.Logger {
 	})
 }
 
+// New creates and initializes a new instance of App
 func New(cfg *config.Config, l *slog.Logger) (*App, error) {
 	a := &App{
 		cfg: cfg,
 		l:   l,
 	}
 
-	lis, err := net.Listen("tcp", cfg.ServerAddress)
-	if err != nil {
-		return nil, fmt.Errorf("failed to listen: %w", err)
-	}
-	a.lis = &lis
-
-	// Configure interceptor logger
-	opts := []logging.Option{
-		logging.WithLogOnEvents(logging.StartCall, logging.FinishCall),
+	if err := a.initListener(); err != nil {
+		return nil, err
 	}
 
-	// Create a gRPC server
-	a.grpcSrv = grpc.NewServer(
-		grpc.ChainUnaryInterceptor(
-			logging.UnaryServerInterceptor(InterceptorLogger(a.l), opts...),
-		),
-	)
-
-	// Use gRPC reflection
-	reflection.Register(a.grpcSrv)
+	a.initGRPCServer()
 
 	svc := service.New(l)
-
 	handler.NewHandler(l, a.grpcSrv, svc)
 
 	return a, nil
 }
 
+// Start performs a start of all functional services
 func (a *App) Start(errChan chan<- error) {
 	a.l.Info("starting server", slog.String("addr", a.cfg.ServerAddress))
 	if err := a.grpcSrv.Serve(*a.lis); err != nil {
@@ -68,7 +54,33 @@ func (a *App) Start(errChan chan<- error) {
 	}
 }
 
+// Stop performs a graceful shutdown for all components
 func (a *App) Stop() {
 	a.l.Info("[!] Shutting down...")
 	a.grpcSrv.Stop()
+}
+
+// initGRPCServer sets up a gRPC server with interceptor logger
+func (a *App) initGRPCServer() {
+	opts := []logging.Option{
+		logging.WithLogOnEvents(logging.StartCall, logging.FinishCall),
+	}
+
+	a.grpcSrv = grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			logging.UnaryServerInterceptor(InterceptorLogger(a.l), opts...),
+		),
+	)
+
+	reflection.Register(a.grpcSrv)
+}
+
+// initListener sets up a tcp listener ready for gRPC
+func (a *App) initListener() error {
+	lis, err := net.Listen("tcp", a.cfg.ServerAddress)
+	if err != nil {
+		return fmt.Errorf("failed to listen: %w", err)
+	}
+	a.lis = &lis
+	return nil
 }
